@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>QR-код для комнаты</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .input-box {
+      width: 250px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .qr-code {
+      width: 250px;
+      height: 250px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #fff;
+    }
+
+    .button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div>
+      <label for="room-name">Введите название комнаты:</label>
+      <input type="text" id="room-name" class="input-box">
+    </div>
+    <div class="qr-code">
+      <!-- Здесь будет отображаться QR-код -->
+    </div>
+  </div>
+
+  <h1>Инструкция</h1>
+  <ul class="instuction">
+    <li>1) Сохраните свой QR код</li>
+    <li>2) Создайте группу </li>
+    <li> 3) Поделитесь свойм QR кодом с остальными пользователями будующей группы</li>
+    <li> 4)Комната создана!</li>
+  </ul>
+
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bill Tracker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 350px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header .profile {
+      display: flex;
+      align-items: center;
+    }
+
+    .header .profile img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .header .profile p {
+      margin: 0;
+    }
+
+    .search {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .search button {
+      background-color: #38d6c4;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .bills {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bill {
+      border-bottom: 1px solid #eee;
+      padding: 15px 0;
+    }
+
+    .bill-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .bill-details .name {
+      font-weight: bold;
+    }
+
+    .bill-details .amount {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .bill-details .icons {
+      display: flex;
+      align-items: center;
+    }
+
+    .bill-details .icons i {
+      margin-right: 5px;
+      font-size: 18px;
+      color: #ccc;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+    }
+
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-body input {
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100%;
+    }
+
+    .modal-body button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .bill-list {
+      margin-top: 20px;
+      list-style: none;
+      padding: 0;
+    }
+
+    .bill-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      padding: 10px 0;
+    }
+
+    .bill-list .name {
+      font-weight: bold;
+    }
+
+    .bill-list .amount {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="profile">
+        <img src="https://via.placeholder.com/50" alt="Profile">
+        <p>"Приветствуем вас!"</p>
+      </div>
+      <div>
+        <p></p>
+      </div>
+    </div>
+
+    <div class="search">
+      <button onclick="openEvenlyModal()">Счет поровну</button>
+      <button id="billItemsButton">Товары в счете</button>
+    </div>
+
+    <h2>Последние счета</h2>
+    
+
+    <ul class="bill-list" id="billList"></ul>
+
+  </div>
+
+  <div id="evenlyModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Счет поровну</h2>
+        <span class="close" onclick="closeEvenlyModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="billName" placeholder="Название счета">
+        <input type="number" id="billTotal" placeholder="Общая стоимость">
+        <button onclick="calculateEvenly()">Рассчитать</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://kit.fontawesome.com/your-fontawesome-kit-id.js" crossorigin="anonymous"></script>
+  <script>
+    const billItemsButton = document.getElementById("billItemsButton");
+
+    function openEvenlyModal() {
+      document.getElementById("evenlyModal").style.display = "block";
+    }
+
+    function closeEvenlyModal() {
+      document.getElementById("evenlyModal").style.display = "none";
+    }
+
+    function calculateEvenly() {
+      const billName = document.getElementById("billName").value;
+      const billTotal = parseFloat(document.getElementById("billTotal").value);
+
+      if (billName && !isNaN(billTotal)) {
+        const billList = document.getElementById("billList");
+        const newBillItem = document.createElement("li");
+
+        const nameSpan = document.createElement("span");
+        nameSpan.classList.add("name");
+        nameSpan.textContent = billName;
+
+        const amountSpan = document.createElement("span");
+        amountSpan.classList.add("amount");
+        amountSpan.textContent = `${billTotal}$`;
+
+        newBillItem.appendChild(nameSpan);
+        newBillItem.appendChild(amountSpan);
+        billList.appendChild(newBillItem);
+
+        // Очистка полей ввода
+        document.getElementById("billName").value = "";
+        document.getElementById("billTotal").value = "";
+
+        closeEvenlyModal();
+      } else {
+        alert("Пожалуйста, введите название и стоимость счета.");
+      }
+    }
+
+    billItemsButton.addEventListener('click', function() {
+      // Замените "bill_items.html" на имя вашей страницы
+      window.location.href = './menu_1.html';
+    });
+  </script>
+</body>
+</html>

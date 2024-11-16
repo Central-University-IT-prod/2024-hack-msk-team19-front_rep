@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Приложение для Раздельного счёта</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: #555;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .input-box {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-bottom: 10px; /* Добавляем отступ между кнопками */
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Стиль для модального окна */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 30%;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .modal-buttons { /* Добавляем класс для контейнера кнопок */
+      display: flex;
+      flex-direction: column; /* Кнопки друг под другом */
+      align-items: center; /* Центрируем по горизонтали */
+    }
+
+    .modal-buttons button { /* Добавляем отступ к кнопкам внутри modal-buttons */
+      margin-bottom: 10px;
+    }
+
+    .modal-buttons button:last-child { /* Убираем отступ у последней кнопки */
+      margin-bottom: 0;
+    }
+
+    .modal-content input { /* Добавляем отступ к полю ввода */
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Устали вечно спорить, кто сколько должен?</h1>
+    <h2>Разделите счет между друзьями легко и быстро с помощью [Название вашего сайта]!</h2>
+    <p>Забыли калькулятор? Не хотите портить вечер спорами? [Название вашего сайта] - это идеальное решение!</p>
+    <button onclick="openNameModal()">Попробовать сейчас!</button>
+  </div>
+
+  <!-- Модальное окно для ввода имени -->
+  <div id="nameModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeNameModal()">&times;</span>
+      <h2>Введите ваше имя</h2>
+      <input type="text" id="userName" placeholder="Ваше имя">
+      <div class="modal-buttons">
+        <a href="2.html" class="button">вступить</a>
+        <a href="3.html" class="button">создать группу</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openNameModal() {
+      document.getElementById("nameModal").style.display = "block";
+    }
+
+    function closeNameModal() {
+      document.getElementById("nameModal").style.display = "none";
+    }
+
+    function joinGroup() {
+      const userName = document.getElementById("userName").value;
+      if (userName) {
+        // Здесь добавьте код для вступления в группу
+        alert(`Вступить в группу! ${userName}`);
+        closeNameModal();
+      } else {
+        alert("Пожалуйста, введите ваше имя.");
+      }
+    }
+
+    function createGroup() {
+      const userName = document.getElementById("userName").value;
+      if (userName) {
+        // Здесь добавьте код для создания группы
+        alert(`Создать группу! ${userName}`);
+        closeNameModal();
+      } else {
+        alert("Пожалуйста, введите ваше имя.");
+      }
+    }
+  </script>
+
+</body>
+</html>
